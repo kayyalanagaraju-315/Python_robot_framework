@@ -3,4 +3,4 @@
 
 
 
-robot -i Testing -d results .\tests\test_case.robot
+robot -i Testing -d .\reports .\tests\test_case.robot
