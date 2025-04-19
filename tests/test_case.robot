@@ -2,7 +2,9 @@
 Library      SeleniumLibrary
 Resource    ../resources/keywords/Keyword.resource
 Resource    ../resources/keywords/Step_By_Step.resource
-Test Teardown    Capture Page Screenshot
+Test Setup    Test Setup Steps
+Test Teardown    Test Teardown Steps
+
 
 
 

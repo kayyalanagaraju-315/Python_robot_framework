@@ -15,12 +15,10 @@ ${EXECUTION_TIME}     None
 
 *** Keywords ***
 Launching the URL
-    Section    Launching the URL
-    ${START_TIME}=  get_time
-    
+    Section    Launching the URL    
     Access URL   ${url}
     ${title}=      Get Title
-    log to console    "The Website Title is : ${title}"
+    log to console    "Website Title is : ${title}"
     Should Be Equal As Strings    ${title}    OrangeHRM
     log to console    "\n Successfully launched the URL \n"
     Wait Until Element Is Visible    ${login_username}    
@@ -29,19 +27,28 @@ Launching the URL
     Click Element    ${login_button}
     Wait Until Element Is Visible    ${login_success_message}
 
-    ${END_TIME}=     get_time 
-    log to console    "The ${TEST_NAME} Start Time is : ${START_TIME}"
-    log to console    "The ${TEST_NAME} End Time is : ${END_TIME}"
+Test Setup Steps
+    Section    Test Setup Steps    
+    ${START_DATE}=  Get Current Date    result_format=%d-%m-%Y 
+    log to console    "\TestCase Execution Start Date is : ${START_DATE}"
+    ${START_TIME}=  Get Current Date    result_format=%H:%M:%S 
+    log to console    "TestCase Execution Start Time is : ${START_TIME}\n"
 
+    Set Test Variable    ${START_DATE}    ${START_DATE}
+    Set Test Variable    ${START_TIME}    ${START_TIME}
+
+Test Teardown Steps
+    Section    Test Teardown Steps    
+    ${END_DATE}=  Get Current Date    result_format=%d-%m-%Y 
+    log to console    "\TestCase Execution End Date is : ${END_DATE}"
+    ${END_TIME}=  Get Current Date    result_format=%H:%M:%S 
+    log to console    "TestCase Execution End Time is : ${END_TIME}\n"
+
+    Set Test Variable    ${END_DATE}    ${END_DATE}
+    Set Test Variable    ${END_TIME}    ${END_TIME}
+
+    ${EXECUTION_TIME}       Execution_TIme    ${START_TIME}    ${END_TIME}    
+    Log To Console    "\nTotal TestCase Execution Time is : ${EXECUTION_TIME}\n"
     
-
-    # ${EXECUTION_TIME} =  Evaluate  (float(${END_TIME}) - float(${START_TIME})) / 1000
-    # Log To Console    Execution time in seconds: ${EXECUTION_TIME}
-
-    close browser
-    log to console    "\n Successfully closed the browser \n" 
-
-    # Capture Page Screenshot
-
-
-
+    close All Browsers
+    log to console    "\n Successfully closed the browser \n"
