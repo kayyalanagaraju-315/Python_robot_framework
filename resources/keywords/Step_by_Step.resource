@@ -9,6 +9,10 @@ Resource    ../resources/keywords/Keyword.resource
 *** Keywords ***
 Login Checking HRM Page
     [Arguments]        #None
-    Launching the URL
-    # Login HRM Page
+    OrangeHRM Launching the URL
+    Login HRM Page
     # Login Page Success Message
+
+Automation Exercise    
+    [Arguments]        #None
+    Automation Exercise Launching the URL
