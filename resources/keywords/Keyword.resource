@@ -22,6 +22,7 @@ OrangeHRM Launching the URL
     log to console    "Website Title is : ${title}"
     Should Be Equal As Strings    ${title}    OrangeHRM
     log to console    "\n Successfully launched the URL \n"
+    capture page screenshot    OrangeHRM_Launching_the_URL.png
 
 Login HRM Page
     Section    Login HRM Page
@@ -33,6 +34,7 @@ Login HRM Page
     Click Element    ${login_button}
     Wait Until Element Is Visible    ${login_success_message}
     log to console    "\n Successfully Logged In \n"
+    capture page screenshot    Login_HRM_Page.png
 
 Automation Exercise Launching the URL
     Section    Automation Exercise Launching the URL
@@ -41,4 +43,5 @@ Automation Exercise Launching the URL
     log to console    "Website Title is : ${title}"
     Should Be Equal As Strings    ${title}    Automation Exercise
     log to console    "\n Successfully launched the URL \n"
+    Capture Page Screenshot    Automation_Exercise_Launching_the_URL.png
 

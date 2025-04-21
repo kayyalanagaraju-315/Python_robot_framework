@@ -4,6 +4,7 @@ Library    ../resources/libraries/common_keywords.py
 Resource    ../resources/Variables/locators.resource
 Library     BuiltIn
 Library    DateTime
+Library    OperatingSystem
 
 
 *** Variables ***
@@ -49,6 +50,9 @@ Test Setup Steps
 
     Set Test Variable    ${START_DATE}    ${START_DATE}
     Set Test Variable    ${START_TIME}    ${START_TIME}
+
+    Run Keyword And Ignore Error    Empty Directory    results/${TEST_NAME}
+    Set Screenshot Directory    results/${TEST_NAME}
 
 Test Teardown Steps
     Section    Test Teardown Steps    

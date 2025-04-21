@@ -1,3 +1,3 @@
 *** Variables ***
-${username}    test_user
-${password}    Anirnan99@
+${username}    Admin
+${password}    admin123
