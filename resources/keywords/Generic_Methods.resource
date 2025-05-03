@@ -17,20 +17,22 @@ Access URL
     [Arguments]    ${url}       
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method    ${options}    add_experimental_option    detach    ${True}
-    Call Method    ${options}    add_argument    --fast-start
-    Call Method    ${options}    add_argument    --start-maximized
-    Call Method    ${options}    add_argument    ${force_scale}
-    Call Method    ${options}    add_argument    --ignore-certificate-errors
-    call Method    ${options}    add_argument    --disable-popup-blocking
-    call Method    ${options}    add_argument    --disable-gpu
-    call Method    ${options}    add_argument    --no-sandbox
-    call Method    ${options}    add_argument    --disable-application-cache
-    call Method    ${options}    add_argument    --disable-extensions
-    call Method    ${options}    add_argument    --disable-infobars
-    call Method    ${options}    add_argument    --disable-dev-shm-usage
-    call Method    ${options}    add_argument    --disable-software-rasterizer
-    call Method    ${options}    add_argument    --disable-web-security
-    call Method    ${options}    add_argument    --allow-insecure-localhost
+    Call Method    ${options}    add_argument    --incognito        #Open in incognito mode
+    Call Method    ${options}    add_argument    --disable-cache    #Disable cache
+    Call Method    ${options}    add_argument    --fast-start        #Fast start
+    Call Method    ${options}    add_argument    --start-maximized    #Start maximized
+    Call Method    ${options}    add_argument    ${force_scale}    #decreasing the window resolution
+    Call Method    ${options}    add_argument    --ignore-certificate-errors    #Ignore certificate errors
+    call Method    ${options}    add_argument    --disable-popup-blocking        #disable the popup blocker
+    call Method    ${options}    add_argument    --disable-gpu    #disable GPU hardware acceleration
+    call Method    ${options}    add_argument    --no-sandbox    #run without sandbox
+    # call Method    ${options}    add_argument    --disable-application-cache
+    # call Method    ${options}    add_argument    --disable-extensions
+    # call Method    ${options}    add_argument    --disable-infobars
+    # call Method    ${options}    add_argument    --disable-dev-shm-usage
+    # call Method    ${options}    add_argument    --disable-software-rasterizer
+    # call Method    ${options}    add_argument    --disable-web-security
+    # call Method    ${options}    add_argument    --allow-insecure-localhost
     
 
 
@@ -48,8 +50,8 @@ Test Setup Steps
     
     log to console    "\n TestCase Execution Start Date and Time is : ${START_DATE} ${START_TIME} \n"
 
-    Set Test Variable    ${START_DATE}    ${START_DATE}
-    Set Test Variable    ${START_TIME}    ${START_TIME}
+    Set Suite Variable    ${START_DATE}    ${START_DATE}
+    Set Suite Variable    ${START_TIME}    ${START_TIME}
 
     Run Keyword And Ignore Error    Empty Directory    results/${TEST_NAME}
     Set Screenshot Directory    results/${TEST_NAME}
@@ -66,6 +68,8 @@ Test Teardown Steps
 
     ${EXECUTION_TIME}       Execution_TIme    ${START_TIME}    ${END_TIME}    
     Log To Console    "\n TestCase Execution Time is : ${EXECUTION_TIME} \n"
+
+    Execute JavaScript    window.localStorage.clear(); window.sessionStorage.clear(); 
     
     close All Browsers
     log to console    "\n Successfully closed the browser \n"
