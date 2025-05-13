@@ -8,14 +8,13 @@ Library    OperatingSystem
 
 
 *** Variables ***
-
-${browser}    chrome
 ${force_scale}        --force-device-scale-factor=0.85
+
 
 *** Keywords ***
 Access URL
-    [Arguments]    ${url}       
-    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    [Arguments]    ${url}      
+    ${options}=    Evaluate    __import__('selenium.webdriver.chrome.options', fromlist=['Options']).Options()    sys
     Call Method    ${options}    add_experimental_option    detach    ${True}
     Call Method    ${options}    add_argument    --incognito        #Open in incognito mode
     Call Method    ${options}    add_argument    --disable-cache    #Disable cache
@@ -26,18 +25,17 @@ Access URL
     call Method    ${options}    add_argument    --disable-popup-blocking        #disable the popup blocker
     call Method    ${options}    add_argument    --disable-gpu    #disable GPU hardware acceleration
     call Method    ${options}    add_argument    --no-sandbox    #run without sandbox
-    # call Method    ${options}    add_argument    --disable-application-cache
-    # call Method    ${options}    add_argument    --disable-extensions
-    # call Method    ${options}    add_argument    --disable-infobars
-    # call Method    ${options}    add_argument    --disable-dev-shm-usage
-    # call Method    ${options}    add_argument    --disable-software-rasterizer
-    # call Method    ${options}    add_argument    --disable-web-security
-    # call Method    ${options}    add_argument    --allow-insecure-localhost
-    
 
 
-    Create Webdriver    Chrome    options=${options}
-    Go To    ${url}
+    ${CHROMEDRIVER_PATH}=    Set Variable    ${CURDIR}${/}drivers/chromedriver.exe
+    ${service}=    Evaluate    __import__('selenium.webdriver.chrome.service', fromlist=['Service']).Service(r'''${CHROMEDRIVER_PATH}''')    sys
+
+
+    Create WebDriver    Chrome    service=${service}    options=${options}
+
+    Go To    ${url} 
+
+
 
 Section 
     [Arguments]    ${section}
@@ -74,4 +72,12 @@ Test Teardown Steps
     close All Browsers
     log to console    "\n Successfully closed the browser \n"
 
-
+Input
+    [Arguments]    ${locator}    ${text}
+    Log To Console    \nInput Text : ${text} to the locator : ${locator} \n   
+    IF    '${locator}[1]'=='/'
+        Wait Until Keyword Succeeds    30    3    input Text    ${locator}    ${text}    clear=True
+    ELSE
+        Wait Until Keyword Succeeds    30    3    input Text    //*[contains(@placeholder,"${locator}")]    ${text}    clear=True
+    END
+    

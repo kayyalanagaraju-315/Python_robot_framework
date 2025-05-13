@@ -27,10 +27,10 @@ OrangeHRM Launching the URL
 Login HRM Page
     Section    Login HRM Page
     Wait Until Element Is Visible    ${login_username}    
-    Input Text    ${login_username}     ${username}
+    Input    ${login_username}     ${username}
     ${en_password}    encrypt_password    ${password}
     ${de_password}    decrypt_password    ${en_password}
-    Input Text    ${login_password}    ${de_password}
+    Input    ${login_password}    ${de_password}
     Click Element    ${login_button}
     Wait Until Element Is Visible    ${login_success_message}
     log to console    "\n Successfully Logged In \n"
