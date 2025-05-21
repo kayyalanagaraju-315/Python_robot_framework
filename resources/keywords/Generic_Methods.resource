@@ -25,6 +25,13 @@ Access URL
     call Method    ${options}    add_argument    --disable-popup-blocking        #disable the popup blocker
     call Method    ${options}    add_argument    --disable-gpu    #disable GPU hardware acceleration
     call Method    ${options}    add_argument    --no-sandbox    #run without sandbox
+    ${loggingPrefs}=    Evaluate    {"performance": "ALL"}    json
+    Call Method    ${options}    set_capability    goog:loggingPrefs    ${loggingPrefs}
+    ${switches}=   Evaluate    ["enable-logging"]    json
+    Call Method    ${options}    add_experimental_option    excludeSwitches    ${switches}
+    # Call Method    ${options}    add_experimental_option    excludeSwitches    ["enable-automation"]
+
+    
 
 
     ${CHROMEDRIVER_PATH}=    Set Variable    ${CURDIR}${/}drivers/chromedriver.exe

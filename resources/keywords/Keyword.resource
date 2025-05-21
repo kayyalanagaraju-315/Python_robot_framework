@@ -30,8 +30,9 @@ Login HRM Page
     Input    ${login_username}     ${username}
     ${en_password}    encrypt_password    ${password}
     ${de_password}    decrypt_password    ${en_password}
-    Input    ${login_password}    ${de_password}
+    Input Password    ${login_password}    ${de_password}
     Click Element    ${login_button}
+    Sleep    5
     Wait Until Element Is Visible    ${login_success_message}
     log to console    "\n Successfully Logged In \n"
     capture page screenshot    Login_HRM_Page.png
